@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="htmlTag">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">تركيز الغابة | إنشاء حساب</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        #newUsername {
+            margin-bottom: 15px !important;
+        }
+        .input-group-custom {
+            position: relative;
+            width: 100%;
+            margin-bottom: 20px !important;
+        }
+        .input-group-custom input {
+            width: 100%;
+            margin-bottom: 0 !important;
+            padding-left: 45px !important;
+        }
+        .toggle-eye {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 10;
+            opacity: 0.6;
+            user-select: none;
+        }
+        .toggle-eye:hover {
+            opacity: 1;
+        }
+        .top-buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <div class="top-buttons">
+        <button id="themeToggle" class="action-icon-btn">🌙 الداكن</button>
+        <button id="langToggle" class="action-icon-btn">🌐 AR | EN</button>
+    </div>
+
+    <div style="font-size: 50px; margin-bottom: 5px;">🌱</div>
+    <h1 id="mainTitle">حساب جديد</h1>
+    <p class="tagline" id="subTitle">انضم إلينا وابدأ رحلة التركيز!</p>
+
+    <input type="text" id="newUsername" placeholder="اسم المستخدم">
+
+    <div class="input-group-custom">
+        <input type="password" id="newPassword" placeholder="كلمة المرور">
+        <span id="togglePassword" class="toggle-eye">👁️</span>
+    </div>
+
+    <button id="signupBtn">إنشاء الحساب</button>
+
+    <p style="margin-top: 15px;">
+        <span id="hasAccountText">لديك حساب بالفعل؟</span>
+        <a href="index.html" id="loginLink">تسجيل الدخول</a>
+    </p>
+
+    <p class="footer-credit" id="footerText">© 2026 تم التطوير بواسطة عهد</p>
+</div>
+
+<script>
+    const passwordInput = document.getElementById('newPassword');
+    const togglePasswordBtn = document.getElementById('togglePassword');
+    const newUsernameInput = document.getElementById('newUsername');
+    const langToggleBtn = document.getElementById('langToggle');
+
+    // إخفاء/إظهار كلمة المرور
+    togglePasswordBtn.addEventListener('click', () => {
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            togglePasswordBtn.innerText = '🙈';
+        } else {
+            passwordInput.type = 'password';
+            togglePasswordBtn.innerText = '👁️';
+        }
+    });
+
+    // ترجمة النصوص
+    const translations = {
+        ar: {
+            title: "تركيز الغابة | إنشاء حساب",
+            mainTitle: "حساب جديد",
+            subTitle: "انضم إلينا وابدأ رحلة التركيز!",
+            userInput: "اسم المستخدم",
+            passInput: "كلمة المرور",
+            signupBtn: "إنشاء الحساب",
+            hasAccount: "لديك حساب بالفعل؟",
+            loginLink: "تسجيل الدخول",
+            footer: "© 2026 تم التطوير بواسطة عهد",
+            emptyErr: "من فضلك املأ جميع الحقول!",
+            existsErr: "اسم المستخدم موجود بالفعل!",
+            successMsg: "تم إنشاء الحساب بنجاح! جاري تحويلك لتسجيل الدخول..."
+        },
+        en: {
+            title: "Forest Focus | Create Account",
+            mainTitle: "New Account",
+            subTitle: "Join us and start your focus journey!",
+            userInput: "Username",
+            passInput: "Password",
+            signupBtn: "Create Account",
+            hasAccount: "Already have an account?",
+            loginLink: "Login",
+            footer: "© 2026 Developed by Ahd",
+            emptyErr: "Please fill all fields!",
+            existsErr: "Username already exists!",
+            successMsg: "Account created successfully! Redirecting to login..."
+        }
+    };
+
+    let currentLang = localStorage.getItem('appLang') || 'ar';
+
+    function applyLanguage(lang) {
+        currentLang = lang;
+        localStorage.setItem('appLang', lang);
+
+        const t = translations[lang];
+        document.documentElement.lang = lang;
+        document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+        document.getElementById('pageTitle').innerText = t.title;
+        document.getElementById('mainTitle').innerText = t.mainTitle;
+        document.getElementById('subTitle').innerText = t.subTitle;
+        newUsernameInput.placeholder = t.userInput;
+        passwordInput.placeholder = t.passInput;
+        document.getElementById('signupBtn').innerText = t.signupBtn;
+        document.getElementById('hasAccountText').innerText = t.hasAccount;
+        document.getElementById('loginLink').innerText = t.loginLink;
+        document.getElementById('footerText').innerText = t.footer;
+
+        // تعديل مكان العين بناءً على الاتجاه
+        togglePasswordBtn.style.left = lang === 'ar' ? '15px' : 'auto';
+        togglePasswordBtn.style.right = lang === 'en' ? '15px' : 'auto';
+        passwordInput.style.paddingLeft = lang === 'ar' ? '45px' : '12px';
+        passwordInput.style.paddingRight = lang === 'en' ? '45px' : '12px';
+    }
+
+    langToggleBtn.addEventListener('click', () => {
+        let newLang = currentLang === 'ar' ? 'en' : 'ar';
+        applyLanguage(newLang);
+    });
+
+    // إنشاء الحساب
+    document.getElementById('signupBtn').addEventListener('click', () => {
+        const u = newUsernameInput.value.trim();
+        const p = passwordInput.value.trim();
+        const t = translations[currentLang];
+
+        if(!u || !p) { alert(t.emptyErr); return; }
+        
+        let accounts = JSON.parse(localStorage.getItem('userAccounts')) || {};
+        if(accounts[u]) { alert(t.existsErr); return; }
+        
+        accounts[u] = p;
+        localStorage.setItem('userAccounts', JSON.stringify(accounts));
+        alert(t.successMsg);
+        window.location.href = 'index.html';
+    });
+
+    // المظهر الداكن/الفاتح
+    const themeBtn = document.getElementById('themeToggle');
+    if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark-theme');
+        themeBtn.innerText = "☀️ الضوء";
+    }
+
+    themeBtn.addEventListener('click', () => {
+        document.body.classList.toggle('dark-theme');
+        const isDark = document.body.classList.contains('dark-theme');
+        themeBtn.innerText = isDark ? "☀️ الضوء" : "🌙 الداكن";
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    });
+
+    // تطبيق اللغة أول ما الصفحة تفتح
+    applyLanguage(currentLang);
+</script>
+</body>
+</html>

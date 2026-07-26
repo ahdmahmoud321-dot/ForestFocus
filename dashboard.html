@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="htmlTag">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="pageTitle">تركيز الغابة | لوحة التحكم</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <div class="top-bar">
+        <button id="themeToggle" class="action-icon-btn">🌙 الداكن</button>
+        <button id="langToggle" class="action-icon-btn">🌐 AR | EN</button>
+    </div>
+
+    <div class="logo-area">
+        <div style="font-size: 50px; margin-bottom: 5px;">🌳</div>
+        <h1 id="mainTitle">تركيز الغابة</h1>
+        <p class="tagline" id="mainSubtitle">منظم الدراسة الذكي</p>
+    </div>
+
+    <p id="quoteText" class="quote-box"></p>
+
+    <div class="progress-section">
+        <div class="progress-header">
+            <span id="welcomeText">👋 مرحبًا بك</span>
+            <span id="progressPercent">0%</span>
+        </div>
+        <div class="progress-bar-bg">
+            <div id="progressBarFill" class="progress-bar-fill"></div>
+        </div>
+    </div>
+
+    <div class="points-display-card">
+        🌟 <span id="pointsLabel">النقاط :</span> <span id="pointsText">0</span>
+    </div>
+
+    <div class="badges-row">
+        <div id="badge1" class="badge-item">🏅 المهمة الأولى</div>
+        <div id="badge2" class="badge-item">🏅 المكتشف</div>
+        <div id="badge3" class="badge-item">🏅 النخبة</div>
+    </div>
+
+    <div class="input-box">
+        <input id="taskInput" type="text" placeholder="أدخل مهمة جديدة...">
+        <select id="taskPriority">
+            <option id="optNormal" value="🟢">عادي 🟢</option>
+            <option id="optMedium" value="🟡">متوسط 🟡</option>
+            <option id="optUrgent" value="🔴">عاجل 🔴</option>
+        </select>
+        <input id="taskDate" type="datetime-local">
+        <button id="addBtn">إضافة مهمة</button>
+    </div>
+
+    <div class="search-clear-area">
+        <input id="searchInput" type="text" placeholder="بحث عن مهمة...">
+        <button id="clearAllBtn" class="btn-danger">🧹 مسح الكل</button>
+    </div>
+
+    <h3 id="tasksHeading">قائمة مهامي</h3>
+    <ul id="taskList"></ul>
+
+    <div style="display:flex; justify-content:space-between; margin-top:20px; font-size:13px; color:var(--muted);">
+        <span><span id="statTotal">الإجمالي :</span> <span id="totalTasks">0</span></span>
+        <span><span id="statDone">المكتملة :</span> <span id="completedTasks">0</span></span>
+        <span><span id="statLeft">المتبقية :</span> <span id="remainingTasks">0</span></span>
+    </div>
+
+    <br>
+    <a href="focus.html" id="focusModeLink" class="primary-btn" style="text-decoration:none; display:block; text-align:center;">🎯 وضع التركيز</a>
+    <br>
+
+    <div class="game-center">
+        <button id="openForestBtn" class="game-btn">🌲 <span id="btnForestText">غابتي الرقمية</span></button>
+        <button id="openBoxBtn" class="game-btn">🎁 <span id="btnBoxText">صندوق المكافآت</span></button>
+    </div>
+
+    <p class="footer-credit" id="footerText">© 2026 تم التطوير بواسطة عهد</p>
+</div>
+
+<div id="forestModal" class="modal-overlay">
+    <div class="modal-content" style="max-width: 450px; width: 90%;">
+        <span id="closeForestBtn" style="position:absolute; top:10px; right:15px; cursor:pointer; font-size:25px;">&times;</span>
+        <h3 id="forestTitle">🌲 الغابة الرقمية</h3>
+        <p class="tagline" id="forestSubText">شاهد إنجازاتك تتجسد في أشجار</p>
+
+        <div id="forestGrid" class="forest-grid-container"></div>
+        
+        <h3 id="shopTitle" style="margin-top: 25px;">🛒 متجر الأشجار</h3>
+        <div class="game-center">
+            <button id="shopBtnTree" class="buy-tree-btn" data-type="tree" data-cost="20">🌳 شجرة (20)</button>
+            <button id="shopBtnPine" class="buy-tree-btn" data-type="pine" data-cost="40">🌲 صنوبر (40)</button>
+            <button id="shopBtnSakura" class="buy-tree-btn" data-type="sakura" data-cost="60">🌸 ساكورا (60)</button>
+            <button id="shopBtnPalm" class="buy-tree-btn" data-type="palm" data-cost="80">🌴 نخيل (80)</button>
+        </div>
+    </div>
+</div>
+
+<div id="rewardBoxModal" class="modal-overlay">
+    <div class="modal-content">
+        <span id="closeBoxBtn" style="position:absolute; top:10px; right:15px; cursor:pointer; font-size:25px; color:var(--danger); font-weight:bold;">&times;</span>
+        <h3 id="boxModalTitle">🎁 صندوق المكافآت</h3>
+        <p id="boxSubText" class="tagline">افتح الصندوق للحصول على شجرة عشوائية!</p>
+        
+        <div id="boxAnimationDisplay" class="box-animation-display">🎁</div>
+        <p id="rewardResultText" style="text-align:center; font-weight:bold; margin:15px 0; min-height:20px; color:var(--success);"></p>
+        <button id="claimBoxBtn">فتح الصندوق (50 🌟)</button>
+    </div>
+</div>
+
+<script src="dashboard.js"></script>
+
+<script>
+    const langToggleBtn = document.getElementById('langToggle');
+    
+    const translations = {
+        ar: {
+            pageTitle: "تركيز الغابة | لوحة التحكم",
+            mainTitle: "تركيز الغابة",
+            mainSubtitle: "منظم الدراسة الذكي",
+            welcome: "👋 مرحبًا بك",
+            pointsLabel: "النقاط :",
+            badge1: "🏅 المهمة الأولى",
+            badge2: "🏅 المكتشف",
+            badge3: "🏅 النخبة",
+            taskInputPh: "أدخل مهمة جديدة...",
+            optNormal: "عادي 🟢",
+            optMedium: "متوسط 🟡",
+            optUrgent: "عاجل 🔴",
+            addBtn: "إضافة مهمة",
+            searchInputPh: "بحث عن مهمة...",
+            clearAllBtn: "🧹 مسح الكل",
+            tasksHeading: "قائمة مهامي",
+            statTotal: "الإجمالي :",
+            statDone: "المكتملة :",
+            statLeft: "المتبقية :",
+            focusModeLink: "🎯 وضع التركيز",
+            btnForestText: "غابتي الرقمية",
+            btnBoxText: "صندوق المكافآت",
+            footerText: "© 2026 تم التطوير بواسطة عهد",
+            
+            forestTitle: "🌲 الغابة الرقمية",
+            forestSubText: "شاهد إنجازاتك تتجسد في أشجار",
+            shopTitle: "🛒 متجر الأشجار",
+            shopBtnTree: "🌳 شجرة (20)",
+            shopBtnPine: "🌲 صنوبر (40)",
+            shopBtnSakura: "🌸 ساكورا (60)",
+            shopBtnPalm: "🌴 نخيل (80)",
+
+            boxModalTitle: "🎁 صندوق المكافآت",
+            boxSubText: "افتح الصندوق للحصول على شجرة عشوائية!",
+            claimBoxBtn: "فتح الصندوق (50 🌟)"
+        },
+        en: {
+            pageTitle: "Forest Focus | Dashboard",
+            mainTitle: "Forest Focus",
+            mainSubtitle: "Smart Study Planner",
+            welcome: "👋 Welcome",
+            pointsLabel: "Points :",
+            badge1: "🏅 First Task",
+            badge2: "🏅 Explorer",
+            badge3: "🏅 Elite",
+            taskInputPh: "Enter a new task...",
+            optNormal: "Normal 🟢",
+            optMedium: "Medium 🟡",
+            optUrgent: "Urgent 🔴",
+            addBtn: "Add Task",
+            searchInputPh: "Search tasks...",
+            clearAllBtn: "🧹 Clear All",
+            tasksHeading: "My Tasks List",
+            statTotal: "Total :",
+            statDone: "Completed :",
+            statLeft: "Remaining :",
+            focusModeLink: "🎯 Focus Mode",
+            btnForestText: "My Digital Forest",
+            btnBoxText: "Reward Box",
+            footerText: "© 2026 Developed by Ahd",
+            
+            forestTitle: "🌲 Digital Forest",
+            forestSubText: "Watch your achievements grow into trees",
+            shopTitle: "🛒 Tree Shop",
+            shopBtnTree: "🌳 Tree (20)",
+            shopBtnPine: "🌲 Pine (40)",
+            shopBtnSakura: "🌸 Sakura (60)",
+            shopBtnPalm: "🌴 Palm (80)",
+
+            boxModalTitle: "🎁 Reward Box",
+            boxSubText: "Open the box to get a random tree!",
+            claimBoxBtn: "Open Box (50 🌟)"
+        }
+    };
+
+    let currentLang = localStorage.getItem('appLang') || 'ar';
+
+    function changeLanguage(lang) {
+        currentLang = lang;
+        localStorage.setItem('appLang', lang);
+
+        const t = translations[lang];
+        document.documentElement.lang = lang;
+        document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+        document.getElementById('pageTitle').innerText = t.pageTitle;
+        document.getElementById('mainTitle').innerText = t.mainTitle;
+        document.getElementById('mainSubtitle').innerText = t.mainSubtitle;
+        
+        const currentUser = localStorage.getItem('currentUser') || 'Guest';
+        document.getElementById('welcomeText').innerText = `${t.welcome} ${currentUser}`;
+        
+        document.getElementById('pointsLabel').innerText = t.pointsLabel;
+        document.getElementById('badge1').innerText = t.badge1;
+        document.getElementById('badge2').innerText = t.badge2;
+        document.getElementById('badge3').innerText = t.badge3;
+
+        document.getElementById('taskInput').placeholder = t.taskInputPh;
+        document.getElementById('optNormal').innerText = t.optNormal;
+        document.getElementById('optMedium').innerText = t.optMedium;
+        document.getElementById('optUrgent').innerText = t.optUrgent;
+        document.getElementById('addBtn').innerText = t.addBtn;
+
+        document.getElementById('searchInput').placeholder = t.searchInputPh;
+        document.getElementById('clearAllBtn').innerText = t.clearAllBtn;
+
+        document.getElementById('tasksHeading').innerText = t.tasksHeading;
+        document.getElementById('statTotal').innerText = t.statTotal;
+        document.getElementById('statDone').innerText = t.statDone;
+        document.getElementById('statLeft').innerText = t.statLeft;
+
+        document.getElementById('focusModeLink').innerText = t.focusModeLink;
+        document.getElementById('btnForestText').innerText = t.btnForestText;
+        document.getElementById('btnBoxText').innerText = t.btnBoxText;
+        document.getElementById('footerText').innerText = t.footerText;
+
+        document.getElementById('forestTitle').innerText = t.forestTitle;
+        document.getElementById('forestSubText').innerText = t.forestSubText;
+        document.getElementById('shopTitle').innerText = t.shopTitle;
+        
+        document.getElementById('shopBtnTree').innerText = t.shopBtnTree;
+        document.getElementById('shopBtnPine').innerText = t.shopBtnPine;
+        document.getElementById('shopBtnSakura').innerText = t.shopBtnSakura;
+        document.getElementById('shopBtnPalm').innerText = t.shopBtnPalm;
+
+        document.getElementById('boxModalTitle').innerText = t.boxModalTitle;
+        document.getElementById('boxSubText').innerText = t.boxSubText;
+        document.getElementById('claimBoxBtn').innerText = t.claimBoxBtn;
+    }
+
+    langToggleBtn.addEventListener('click', () => {
+        let newLang = currentLang === 'ar' ? 'en' : 'ar';
+        changeLanguage(newLang);
+    });
+
+    // تنفيذ التغيير فور تحميل كافة العناصر
+    window.addEventListener('DOMContentLoaded', () => {
+        changeLanguage(currentLang);
+    });
+</script>
+
+</body>
+</html>
